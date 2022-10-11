@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<grafo>
+<node id="0">
+  <data key="d4">253849818</data>
+  <data key="d5">4281979.7992614</data>
+  <data key="d6">402066.77230105666</data>
+  <data key="d7">4</data>
+  <data key="d8">-4.1259222</data>
+  <data key="d9">38.6810053</data>
+</node>
+
+<node id="2">
+  <data key="d4">1456347757</data>
+  <data key="d5">4281962.501450297</data>
+  <data key="d6">402189.32889049116</data>
+  <data key="d7">3</data>
+  <data key="d8">-4.124511</data>
+  <data key="d9">38.680863</data>
+</node>
+</grafo>
