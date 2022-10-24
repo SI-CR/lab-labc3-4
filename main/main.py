@@ -20,7 +20,6 @@ class CiudadesHandler(xml.sax.ContentHandler):
            
         if name == 'data':
             self.key = attrs.get('key')
-           # print("       key del dato: " + self.key + " ")  
 
         if name == 'key':
             self.idkey = attrs.get('id')
@@ -29,10 +28,7 @@ class CiudadesHandler(xml.sax.ContentHandler):
             objkey = key(self.idkey,self.fora,self.keyname)  #Creo un objeto key con todos los valores que me da esa etiqueta
             datosKeys.update({self.idkey:objkey}) #Para identificar los ids rapidos creo un diccionario y a cada id le asigno su objeto
 
-            #print("añadido key " + self.idkey)
-
         if name == 'edge':
-            #print("Arista")
             self.source = attrs.get('source')
             self.target = attrs.get('target')
             self.idArista = attrs.get('id')
@@ -65,16 +61,6 @@ parser.parse('AB.graphXML')
 
 
 
-#Testing functions
-
-#for x in datosKeys:
-#    print(datosKeys[x])
-
-#Comprobar lista adyacencia
-    #for x in grafo.adyacentes(945):
-        # print(x)
-
-#grafo.pintarInfo(2663,datosKeys)
 
  
   
