@@ -1,10 +1,11 @@
+
 from EspacioDeEstados import EspacioDeEstados
 from Estado import Estado
 
 class Problema:
 
     def __init__(self):
-        self.__espacioEstados=EspacioDeEstados("Capitales y Talavera/CR.graphXML")
+        self.__espacioEstados=EspacioDeEstados("CR.graphXML")
 
         #Definicion del EstadoInicial
         nodoInicial = "3123"

@@ -1,4 +1,6 @@
+
 import hashlib
+
 
 class Estado:
 
