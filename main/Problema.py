@@ -4,6 +4,7 @@ from Estado import Estado
 class Problema:
 
     def __init__(self):
+        #objeto espacio de estados
         self.__espacioEstados=EspacioDeEstados("Capitales y Talavera/CR.graphXML")
 
         #Definicion del EstadoInicial
