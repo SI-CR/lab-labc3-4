@@ -5,7 +5,7 @@ from Estado import Estado
 class Problema:
 
     def __init__(self):
-        self.__espacioEstados=EspacioDeEstados("CR.graphXML")
+        self.__espacioEstados=EspacioDeEstados("lab-labc3-4/main/CR.graphXML")
 
         #Definicion del EstadoInicial
         nodoInicial = "3123"
