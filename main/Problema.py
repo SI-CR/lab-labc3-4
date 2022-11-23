@@ -28,7 +28,7 @@ class Problema:
         frontera = Frontera()
         nodoInicialFrontera = "3123"
         frontera.addNodoFrontera(espacioEstados.grafo.getObjetoNodo(nodoInicialFrontera)) #Nodo inicio
-        #frontera.expandirNodos(espacioEstados.grafo)
+        frontera.expandirNodos(espacioEstados.grafo)
 
     def getEstadoInicial(self):
         return self.__estadoInicial
