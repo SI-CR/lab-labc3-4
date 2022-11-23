@@ -5,15 +5,17 @@ from Estado import Estado
 
 class EspacioDeEstados:
 
+    grafo: Grafo
+
     def __init__(self, ficheroGrafo):
-        self.__grafo = Grafo(ficheroGrafo)
+        self.grafo = Grafo(ficheroGrafo)
 
     # método que nos indica si un nodo pertenece al grafo o no
     def nodoPerteneceGrafo(self, nodoInicial, listaNodos):
-        if not self.__grafo.existeNodo(nodoInicial):
+        if not self.grafo.existeNodo(nodoInicial):
             return False
         for n in listaNodos:
-            if not self.__grafo.existeNodo(n):
+            if not self.grafo.existeNodo(n):
                 return False
         return True
 
@@ -23,7 +25,7 @@ class EspacioDeEstados:
     def sucesores(self, estado):
 
         listaSucesores = []
-        listaAdyacentes = self.__grafo.adyacentesAristas(estado.getNodo())
+        listaAdyacentes = self.grafo.adyacentesAristas(estado.getNodo())
         nodosSinVisitar = estado.getListaNodos()
         
         # en caso de que el nodo tenga aristas adyacentes

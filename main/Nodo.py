@@ -1,8 +1,15 @@
-
-#import Estado
+import Estado
 
 class Nodo:
     id: int
+    idGeneracion: int
+    padre: int
+    estado: Estado
+    valor:int
+    profundidad:int
+    costo:int
+    heuristica:float
+    accion:str
     diccionario: dict()  # Contiene todos los datos del nodo
 
     # constructor
@@ -15,3 +22,4 @@ class Nodo:
     
     def getAtributosNodo(self):
         return self.diccionario
+

@@ -1,27 +1,34 @@
 
 from EspacioDeEstados import EspacioDeEstados
 from Estado import Estado
+from Frontera import Frontera
 
 class Problema:
 
     def __init__(self):
-        self.__espacioEstados=EspacioDeEstados("lab-labc3-4/main/CR.graphXML")
+        espacioEstados=EspacioDeEstados("lab-labc3-4/main/CR.graphXML")
 
         #Definicion del EstadoInicial
         nodoInicial = "3123"
         listaNodosInicial = ['3161', '3114', '2479', '3365', '3363']
         
         existenNodos = True
-        if not self.__espacioEstados.nodoPerteneceGrafo(nodoInicial, listaNodosInicial):
+        if not espacioEstados.nodoPerteneceGrafo(nodoInicial, listaNodosInicial):
             existenNodos = False
                     
         if (existenNodos):
             heuristica = 0
             self.__estadoInicial=Estado(nodoInicial,listaNodosInicial,heuristica)
         
-            solucion = self.__espacioEstados.sucesores(self.__estadoInicial)
+            solucion = espacioEstados.sucesores(self.__estadoInicial)
             for s in solucion:
                 print(s)
+        
+        #TAREA 3
+        frontera = Frontera()
+        nodoInicialFrontera = "3123"
+        frontera.addNodoFrontera(espacioEstados.grafo.getObjetoNodo(nodoInicialFrontera)) #Nodo inicio
+        #frontera.expandirNodos(espacioEstados.grafo)
 
     def getEstadoInicial(self):
         return self.__estadoInicial
