@@ -23,3 +23,5 @@ class Nodo:
     def getAtributosNodo(self):
         return self.diccionario
 
+    def toString(self):
+        print('[{}][{},{},{},{},{},{},{}]'.format(self.id,self.costo,self.estado,self.padre,self.accion,self.profundidad,self.heuristica,self.valor))

@@ -24,3 +24,13 @@ class Estado:
     
     def getCoste(self):
         return self.coste
+
+    def seis_digitos(self):
+        id_nodo = self.getIdNodo()
+        longitud_id = len(id_nodo)
+        cadena_digitos = []
+        contador=0
+        for numero in id_nodo:
+            if longitud_id-contador==6:
+                cadena_digitos.append(numero)
+        return cadena_digitos
