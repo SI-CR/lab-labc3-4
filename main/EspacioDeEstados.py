@@ -117,7 +117,7 @@ class EspacioDeEstados:
                     for combi in combs:
                         dist = self.calcularDistancia(combi[0],estado.getNodo())
                         minCombiDistan.append(dist)
-                    d2 = min(minCombiDistan)
+                    d2 = min(minCombiDistan,default=0)
                     heuristica = min(d1,d2) * len(estado.getListaNodos())
                 else:
                     heuristica = self.heuristicaArco(estado.getListaNodos(),self.arcoMinimo())
