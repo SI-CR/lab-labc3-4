@@ -2,7 +2,7 @@
 #from cgitb import handler
 import xml.sax
 
-from Key import Key
+from key import Key
 from Nodo import Nodo
 from Edge import Edge
 
