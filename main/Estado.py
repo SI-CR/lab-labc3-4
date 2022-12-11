@@ -4,23 +4,35 @@ import hashlib
 
 class Estado:
 
-    def __init__(self,nodo,lista_nodos, coste):
+    def __init__(self, nodo, lista_nodos, heuristica):
         self.nodo = nodo
-        self.listNodos = sorted(lista_nodos)
-        self.id = self.md5generador(self.nodo,self.listNodos)
-        self.coste = coste
-        
-    def md5generador(self,id_nodo,lista):
-        # creamos el estado (nodo actual +  nodos por visitar) y creamos su id en formato md5
-        estado = f'{id_nodo} {lista}'
-        md5 = hashlib.md5(estado.encode())
+        self.listaNodos = sorted(lista_nodos, key=lambda reverse: True)
+        self.id = self.md5generador(self.nodo, self.listaNodos)
+        self.heuristica = heuristica
+
+    def md5generador(self, id_nodo, lista):
+        estado = '(' + id_nodo + ','+'['
+        for n in lista:
+            if lista.index(n) == len(lista)-1:
+                estado += n + '])'
+            else:
+                estado += n + ','
+        if len(lista) == 0:
+            estado += '])'
+        md5 = hashlib.md5(str(estado).encode())
         return md5.hexdigest()
+
+    def getID(self):
+        return self.id
 
     def getNodo(self):
         return self.nodo
 
     def getListaNodos(self):
-        return self.listNodos
+        return self.listaNodos
     
-    def getCoste(self):
-        return self.coste
+    def getHeuristica(self):
+        return self.heuristica
+
+    def get6digitosMD5(self):
+        return self.id[26:]

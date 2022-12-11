@@ -1,4 +1,4 @@
-class key:
+class Key:
     
     #constructor
     def __init__(self,id,fora,keyname):

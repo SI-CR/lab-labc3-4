@@ -1,28 +1,32 @@
+
 from EspacioDeEstados import EspacioDeEstados
 from Estado import Estado
 
 class Problema:
 
-    def __init__(self):
-        #objeto espacio de estados
-        self.__espacioEstados=EspacioDeEstados("Capitales y Talavera/CR.graphXML")
+    d1 = 0
 
-        #Definicion del EstadoInicial
-        nodoInicial = "3123"
-        listaNodosInicial = ['3161', '3114', '2479', '3365', '3363']
+    def __init__(self, nodoInicial, listaNodosInicial,tipoHeuristica):
+        #listaNodosInicial = []
+        #for n in listaNodos:
+        #    listaNodosInicial.append(int(n))
+        listaNodosInicial = sorted(listaNodosInicial, key=lambda reverse:True)
+        self.__espacioEstados=EspacioDeEstados("main/nuevo.graphxml.xml")
         
-        # Comprobamos que dichos nodos existen
         existenNodos = True
         if not self.__espacioEstados.nodoPerteneceGrafo(nodoInicial, listaNodosInicial):
             existenNodos = False
                     
         if (existenNodos):
-            heuristica = 0
+            if tipoHeuristica == "euclidea":
+                self.d1 = self.__espacioEstados.calcularHeuristica(nodoInicial, listaNodosInicial)
+                heuristica =self.d1
+            else:
+                heuristica = self.__espacioEstados.heuristicaArco(listaNodosInicial,self.__espacioEstados.arcoMinimo())  #esto es para d1
+
             self.__estadoInicial=Estado(nodoInicial,listaNodosInicial,heuristica)
-        
-            solucion = self.__espacioEstados.sucesores(self.__estadoInicial)
-            for s in solucion:
-                print(s)
+            #self.__estadoInicial.getListaNodos()
+            
 
     def getEstadoInicial(self):
         return self.__estadoInicial
@@ -33,6 +37,6 @@ class Problema:
     def esObjetivo(self,estado):
         return estado.getListaNodos() == []
     
-if (__name__ == "__main__"):
+    def getGrafo(self):
+        return self.__espacioEstados.getGrafo()
     
-    p = Problema()

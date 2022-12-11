@@ -1,5 +1,6 @@
 
 from cgitb import handler
+#from turtle import circle
 import xml.sax
 
 from leerFichero import CiudadesHandler
@@ -54,9 +55,8 @@ class Grafo():
                     return n
         else:
             return None
-    
-    # Busca el id de la arista y te devuelve el objeto
-    def getObjetoArista(self, sourceOrigen, sourceDestino, sourceID):
+        
+    def getObjetoArista(self, sourceOrigen, sourceDestino, sourceID):  # Busca el id de la arista y te devuelve el objeto
         if self.existeArista(sourceOrigen, sourceDestino, sourceID):
             for n in self.aristasGrafo:
                 if (int(sourceID) == int(n.getIDArista()) and (int(sourceOrigen) == int(n.getSourceArista())) and (int(sourceDestino) == int(n.getTargetArista()))):
@@ -64,8 +64,7 @@ class Grafo():
         else:
             return None
         
-    # Mismo método de getObjetoArista pero sin necesidad de indicar el ID
-    def getObjetoAristaSinID(self, sourceOrigen, sourceDestino):
+    def getObjetoAristaSinID(self, sourceOrigen, sourceDestino):  # Mismo método de getObjetoArista pero sin necesidad de indicar el ID
         if self.existeAristaSinID(sourceOrigen, sourceDestino):
             for n in self.aristasGrafo:
                 if ((int(sourceOrigen) == int(n.getSourceArista())) and (int(sourceDestino) == int(n.getTargetArista()))):
@@ -114,7 +113,9 @@ class Grafo():
             if int(a.source) == int(source):
                 adyacentes.append(a.target)
         return adyacentes
-            
+    
+    def getArtistasGrafo(self):
+        return self.aristasGrafo
 #if (__name__ == "__main__"):
     
 #    g = Grafo("Capitales y Talavera/CR.graphXML")
