@@ -59,6 +59,7 @@ class EspacioDeEstados:
         else:
             listaDist = list()
             if len(listaNodos)>1:
+                listaNodos.append(nodoInicial)
                 combinaciones = itertools.combinations(listaNodos,2)
                 for combi in combinaciones:
                     dist = self.calcularDistancia(combi[0],combi[1])
