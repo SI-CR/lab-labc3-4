@@ -34,6 +34,9 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
                 listaNodos = expandirNodos(sucesoresEstado, nodoActual, profundidaMaxima, estrategia)
                 nodosPoda, datosPoda = algoritmoPoda(datosPoda, listaNodos, estrategia)
                 frontera.anadirListaNodos(nodosPoda)
+                for n in listaNodos:
+                    if n.getIDNodo() == 3352:
+                        print("Coste de", n.getIDNodo(),":", round(n.getCoste(),2))
 
     if (solucion == None):
         return None, None
@@ -99,12 +102,12 @@ if __name__ == "__main__":
 
     listaNodosSolucion = []
 
-    profundidadMaxima = 120
-    Estrategia = "a*"
+    profundidadMaxima = 600
+    Estrategia = "costo"
     #nodoInicial = "54"
     #listaNodosInicial = [186, 699, 1277]
-    nodoInicial = "1142"
-    listaNodosInicial = ['17','654','1236']
+    nodoInicial = "863"
+    listaNodosInicial = ['775','827', '951','1090']
     tipoHeuristica = "arco" #euclidea
     # nodoInicial = "216"
 
