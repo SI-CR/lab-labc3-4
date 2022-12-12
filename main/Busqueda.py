@@ -125,10 +125,15 @@ if __name__ == "__main__":
         #3e8b20
         print("- CAMINO SEGUIDO:")
         for nodo in reversed(solucion):
-            listaNodosSolucion.append(nodo.getIDNodo())
-        print(listaNodosSolucion)
+            if nodo.getPadre() == None:
+                print("[",nodo.getIDNodo(),"][",round(nodo.getCoste(),2),"[(", nodo.getEstado().getNodo(),",",nodo.getEstado().getListaNodos(),")|", nodo.get6Digitos(), "]",
+                    None, nodo.getAccion(), nodo.getProfundidad(), round(nodo.getHeuristica(),2), round(nodo.getValor(),2),"]")
+            else:
+                print("[",nodo.getIDNodo(),"][",round(nodo.getCoste(),2),"[(", nodo.getEstado().getNodo(),"[",nodo.getEstado().getListaNodos(),"])|", nodo.get6Digitos(), "]",
+                    nodo.getPadre().getIDNodo(), nodo.getAccion(), nodo.getProfundidad(), round(nodo.getHeuristica(),2), round(nodo.getValor(),2),"]")
+        #print(listaNodosSolucion)
         print("- PROFUNDIDAD:", ultimoNodoVisitado.getProfundidad())
-        print("- COSTE:",ultimoNodoVisitado.getCoste())
+        print("- COSTE TOTAL:",ultimoNodoVisitado.getCoste())
         print("FIN DEL PROGRAMA")
     else:
         print("NO HAY SOLUCIÓN")
