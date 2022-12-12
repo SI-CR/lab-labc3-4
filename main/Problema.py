@@ -11,7 +11,7 @@ class Problema:
         #for n in listaNodos:
         #    listaNodosInicial.append(int(n))
         listaNodosInicial = sorted(listaNodosInicial, key=lambda reverse:True)
-        self.__espacioEstados=EspacioDeEstados("main/nuevo.graphxml.xml")
+        self.__espacioEstados=EspacioDeEstados("main/nuevo.graphxml")
         
         existenNodos = True
         if not self.__espacioEstados.nodoPerteneceGrafo(nodoInicial, listaNodosInicial):

@@ -30,6 +30,7 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
             solucion = True
         else:
             sucesoresEstado = problema.getEspacioEstados().sucesores(estadoNodoActual,d1,tipoHeuristica)
+            #sucesoresEstado = sorted(problema.getEspacioEstados().sucesores(estadoNodoActual,d1,tipoHeuristica)) #prueba arreglar ids
             if sucesoresEstado != None:
                 listaNodos = expandirNodos(sucesoresEstado, nodoActual, profundidaMaxima, estrategia)
                 nodosPoda, datosPoda = algoritmoPoda(datosPoda, listaNodos, estrategia)
@@ -99,16 +100,12 @@ if __name__ == "__main__":
 
     listaNodosSolucion = []
 
-    profundidadMaxima = 120
-    Estrategia = "a*"
-    #nodoInicial = "54"
-    #listaNodosInicial = [186, 699, 1277]
-    nodoInicial = "1142"
-    listaNodosInicial = ['17','654','1236']
+    profundidadMaxima = 600
+    Estrategia = "voraz"
+    nodoInicial = "1221"
+    listaNodosInicial = ['249','441','528']
     tipoHeuristica = "arco" #euclidea
-    # nodoInicial = "216"
-
-    # listaNodosInicial = ['17','281','470', '655']
+    
     problema = Problema(nodoInicial, listaNodosInicial,tipoHeuristica)
     d1 = problema.d1
 
