@@ -21,9 +21,11 @@ class Problema:
             if tipoHeuristica == "euclidea":
                 self.d1 = self.__espacioEstados.calcularHeuristica(nodoInicial, listaNodosInicial)
                 heuristica =self.d1
-            else:
+            elif tipoHeuristica == "arco":
                 heuristica = self.__espacioEstados.heuristicaArco(listaNodosInicial,self.__espacioEstados.arcoMinimo())  #esto es para d1
-
+            else:
+                heuristica=0
+            
             self.__estadoInicial=Estado(nodoInicial,listaNodosInicial,heuristica)
             #self.__estadoInicial.getListaNodos()
             
