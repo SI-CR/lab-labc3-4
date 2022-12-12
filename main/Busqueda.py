@@ -53,6 +53,7 @@ def expandirNodos(listaSucesores, padre, profundidadMaxima, estrategia):
             nodo = estado.getNodo()
 
             nodo = NodoArbol(padre, estado, coste, estrategia, accion)
+     
             listaNodos.append(nodo)
                 
 
@@ -99,12 +100,12 @@ if __name__ == "__main__":
 
     listaNodosSolucion = []
 
-    profundidadMaxima = 120
-    Estrategia = "a*"
+    profundidadMaxima = 600
+    Estrategia = "costo"
     #nodoInicial = "54"
     #listaNodosInicial = [186, 699, 1277]
-    nodoInicial = "1142"
-    listaNodosInicial = ['17','654','1236']
+    nodoInicial = "1221"
+    listaNodosInicial = ['249','441','528']
     tipoHeuristica = "arco" #euclidea
     # nodoInicial = "216"
 

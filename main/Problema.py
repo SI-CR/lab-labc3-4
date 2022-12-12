@@ -11,7 +11,7 @@ class Problema:
         #for n in listaNodos:
         #    listaNodosInicial.append(int(n))
         listaNodosInicial = sorted(listaNodosInicial, key=lambda reverse:True)
-        self.__espacioEstados=EspacioDeEstados("main/nuevo.graphxml.xml")
+        self.__espacioEstados=EspacioDeEstados("main/nuevo.graphxml")
         
         existenNodos = True
         if not self.__espacioEstados.nodoPerteneceGrafo(nodoInicial, listaNodosInicial):
@@ -22,6 +22,7 @@ class Problema:
                 self.d1 = self.__espacioEstados.calcularHeuristica(nodoInicial, listaNodosInicial)
                 heuristica =self.d1
             else:
+                
                 heuristica = self.__espacioEstados.heuristicaArco(listaNodosInicial,self.__espacioEstados.arcoMinimo())  #esto es para d1
 
             self.__estadoInicial=Estado(nodoInicial,listaNodosInicial,heuristica)
