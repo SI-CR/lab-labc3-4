@@ -105,7 +105,7 @@ if __name__ == "__main__":
     #listaNodosInicial = [186, 699, 1277]
     nodoInicial = "1142"
     listaNodosInicial = ['17','654','1236']
-    tipoHeuristica = "arco" #euclidea
+    tipoHeuristica = "sin heuristica" #euclidea # sin heuristica #arco
     # nodoInicial = "216"
 
     # listaNodosInicial = ['17','281','470', '655']
