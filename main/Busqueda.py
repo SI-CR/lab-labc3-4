@@ -1,7 +1,7 @@
 from NodoArbol import NodoArbol
 from Frontera import Frontera
 from Problema import Problema
-import hashlib
+
 
 def busquedaSolucion(problema, estrategia, profundidadMaxima,d1,tipoHeuristica):
 
@@ -15,8 +15,7 @@ def busquedaSolucion(problema, estrategia, profundidadMaxima,d1,tipoHeuristica):
 
 def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
 
-    datosPoda = {}
-
+    datosPoda = []
     frontera = Frontera()
     estadoInicial = problema.getEstadoInicial()
     nodoInicial = NodoArbol(None, estadoInicial, 0, estrategia, '0.0 0 0.0')
@@ -29,12 +28,13 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
         if problema.esObjetivo(estadoNodoActual):  #Aqui compara si la linea de estados esta vacia
             solucion = True
         else:
-            sucesoresEstado = problema.getEspacioEstados().sucesores(estadoNodoActual,d1,tipoHeuristica)
-            if sucesoresEstado != None:
-                listaNodos = expandirNodos(sucesoresEstado, nodoActual, profundidaMaxima, estrategia)
-                nodosPoda, datosPoda = algoritmoPoda(datosPoda, listaNodos, estrategia)
-                frontera.anadirListaNodos(nodosPoda)
-
+            # comprobar profundidad e id estado visitado
+            if nodoActual.getProfundidad() <= profundidadMaxima and nodoActual.getEstado().getID() not in datosPoda:
+                sucesoresEstado = problema.getEspacioEstados().sucesores(estadoNodoActual,d1,tipoHeuristica)
+                datosPoda.append(nodoActual.getEstado().getID())
+                if sucesoresEstado != None:
+                    listaNodos = expandirNodos(sucesoresEstado, nodoActual, profundidaMaxima, estrategia)
+                    frontera.anadirListaNodos(listaNodos)
     if (solucion == None):
         return None, None
     else:
@@ -44,44 +44,14 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
 def expandirNodos(listaSucesores, padre, profundidadMaxima, estrategia):
 
     listaNodos = []
-
-    if (padre.getProfundidad() < int(profundidadMaxima)):
-        for datosSucesor in listaSucesores:
-            coste = datosSucesor[2]
-            accion = datosSucesor[0]
-            estado = datosSucesor[1]
-            nodo = estado.getNodo()
-
-            nodo = NodoArbol(padre, estado, coste, estrategia, accion)
-            listaNodos.append(nodo)
-                
-
+    for datosSucesor in listaSucesores:
+        coste = datosSucesor[2]
+        accion = datosSucesor[0]
+        estado = datosSucesor[1]
+        nodo = estado.getNodo()
+        nodo = NodoArbol(padre, estado, coste, estrategia, accion)
+        listaNodos.append(nodo)
     return listaNodos
-
-
-def algoritmoPoda(dictPoda, listaNodos, estrategia):
-
-    ListaNodosPoda = []
-
-    for nodo in listaNodos:
-        idEstadoNodo = nodo.getEstado().getID()
-        valorNodo = nodo.getValor()
-
-        if (idEstadoNodo in dictPoda):
-            if (estrategia in ["profundidad"]):
-                if valorNodo > int(dictPoda.get(idEstadoNodo)):
-                    dictPoda.update({idEstadoNodo: valorNodo})
-                    ListaNodosPoda.append(nodo)
-            else:
-                if valorNodo < int(dictPoda.get(idEstadoNodo)):
-
-                    dictPoda.update({idEstadoNodo: valorNodo})
-                    ListaNodosPoda.append(nodo)
-        else:
-            dictPoda.update({idEstadoNodo: valorNodo})
-            ListaNodosPoda.append(nodo)
-
-    return ListaNodosPoda, dictPoda
 
 
 def formatoSolucion(nodo):
@@ -99,16 +69,12 @@ if __name__ == "__main__":
 
     listaNodosSolucion = []
 
-    profundidadMaxima = 120
+    profundidadMaxima = 600
     Estrategia = "a*"
-    #nodoInicial = "54"
-    #listaNodosInicial = [186, 699, 1277]
-    nodoInicial = "1142"
-    listaNodosInicial = ['17','654','1236']
-    tipoHeuristica = "sin heuristica" #euclidea # sin heuristica #arco
-    # nodoInicial = "216"
-
-    # listaNodosInicial = ['17','281','470', '655']
+    nodoInicial = "71"
+    listaNodosInicial = ['2','112', '287', '561', '660']
+    tipoHeuristica = "arco"
+    
     problema = Problema(nodoInicial, listaNodosInicial,tipoHeuristica)
     d1 = problema.d1
 
@@ -131,9 +97,8 @@ if __name__ == "__main__":
             else:
                 print("[",nodo.getIDNodo(),"][",round(nodo.getCoste(),2),"[(", nodo.getEstado().getNodo(),",",nodo.getEstado().getListaNodos(),")|", nodo.get6Digitos(), "]",
                     nodo.getPadre().getIDNodo(), nodo.getAccion(), nodo.getProfundidad(), round(nodo.getHeuristica(),2), round(nodo.getValor(),2),"]")
-        #print(listaNodosSolucion)
         print("- PROFUNDIDAD:", ultimoNodoVisitado.getProfundidad())
-        print("- COSTE TOTAL:",ultimoNodoVisitado.getCoste())
+        print("- COSTE TOTAL:",ultimoNodoVisitado.getValor())
         print("FIN DEL PROGRAMA")
     else:
         print("NO HAY SOLUCIÓN")
