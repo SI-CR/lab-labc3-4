@@ -1,7 +1,4 @@
 
-#from Estado import Estado
-
-
 class NodoArbol:
 
     class_counter = 0
@@ -9,7 +6,7 @@ class NodoArbol:
     def estrategiaBusqueda(self, estrategia):
         if estrategia == "anchura":
             valor = self.__profundidad
-        elif estrategia == "costo":
+        elif estrategia == "coste":
             valor = self.__coste
         elif estrategia == "profundidad":
             valor = (-1)/(self.__profundidad + 1)
@@ -65,6 +62,6 @@ class NodoArbol:
 
     def get6Digitos(self):
         return self.getEstado().get6digitosMD5()
-    
+
     def getHeuristica(self):
         return self.__heuristica
