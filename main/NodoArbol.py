@@ -9,12 +9,14 @@ class NodoArbol:
     def estrategiaBusqueda(self, estrategia):
         if estrategia == "anchura":
             valor = self.__profundidad
-        elif estrategia == "costo":
+        elif estrategia == "coste":
             valor = self.__coste
         elif estrategia == "profundidad":
             valor = (-1)/(self.__profundidad + 1)
         elif estrategia == "a*":
             valor = self.__heuristica + self.__coste
+        elif estrategia == "voraz":
+            valor = self.__heuristica
         else:
             print("Estrategia no valida")
             valor = -1
@@ -29,6 +31,8 @@ class NodoArbol:
         self.__estado = estado
         self.__accion = accion
         if estrategia == "a*":
+            self.__heuristica = estado.getHeuristica()
+        elif estrategia == "voraz":
             self.__heuristica = estado.getHeuristica()
         else:
             self.__heuristica = 0

@@ -46,8 +46,8 @@ class EspacioDeEstados:
         xN2 = atributosN2.get("d6")
         yN2 = atributosN2.get("d5")
         
-        a = abs((float(xN1)-float(xN2))**2)
-        b = abs((float(yN1)-float(yN2))**2)
+        a = (float(xN1)-float(xN2))**2
+        b = (float(yN1)-float(yN2))**2
 
         result = math.sqrt((a+b))
        
@@ -77,11 +77,15 @@ class EspacioDeEstados:
 
     # en este metodo se encarga de devolver una lista de sucesores para  
     # el estado que hemos pasado como parametro.
-    def sucesores(self, estado,d1,tipoHeuristica):
+    def sucesores(self, estado,d1,tipoHeuristica,arcominimo):
 
+        #listaImprimir = []
         listaSucesores = []
         listaAdyacentes = self.__grafo.adyacentesAristas(estado.getNodo())
-        listaAdyacentes = sorted(listaAdyacentes, key=lambda Edge: int(Edge.getTargetArista()))
+        #atributos = arista.getAtributosArista()
+        listaAdyacentes = sorted(listaAdyacentes, key=lambda Edge: (int(Edge.getTargetArista())))
+        #listaAdyacentes = sorted(listaAdyacentes, key=lambda Edge: (self.getGrafo().getObjetoNodo(Edge.getTargetArista()).getIDNodo()))
+        heuristica = 0
         #print("Adyacentes a", estado.getNodo())
         #for arista in listaAdyacentes:
                 #print(arista.getTargetArista())
@@ -92,6 +96,9 @@ class EspacioDeEstados:
            
            # obtenemos el nombre de la calle y la distancia (coste) de cada arista
             for arista in listaAdyacentes:
+                #print("origen", arista.getSourceArista(), "destino", arista.getTargetArista())
+                    #destino = self.getGrafo().getObjetoNodo(arista.getTargetArista())
+                    #print("Coste:", destino.getCoste())
                 atributos = arista.getAtributosArista()
                 #nombreCalle = atributos.get('d22')
                 #distancia = atributos.get('d16')
@@ -106,6 +113,10 @@ class EspacioDeEstados:
                     siguienteNodo = arista.getTargetArista()
                     if  i != siguienteNodo:
                         listaNuevosNodos.append(i)
+                    # print(siguienteNodo)
+                    # if siguienteNodo == "5191":
+                    #     nodoCoste = self.__grafo.getObjetoNodo(siguienteNodo)
+                    #     print("---- Coste", nodoCoste.getCoste())
                         
                 #heuristica = self.calcularHeuristica(siguienteNodo, listaNuevosNodos)
                 #print(estado.getHeuristica())
@@ -119,24 +130,28 @@ class EspacioDeEstados:
                         minCombiDistan.append(dist)
                     d2 = min(minCombiDistan,default=0)
                     heuristica = min(d1,d2) * len(estado.getListaNodos())
-                else:
-                    heuristica = self.heuristicaArco(estado.getListaNodos(),self.arcoMinimo())
+                elif tipoHeuristica == "arco":
+                    heuristica = self.heuristicaArco(listaNuevosNodos,arcominimo)
                 
                 #d2 = self.calcularHeuristica(estado.getNodo(),estado.getListaNodos())
 
                 # creamos un nuevos estado con el primer adyacente
                 # y la lista de nodos adyacentes (eliminando el primero, que es el que hemos cogido)
-                nuevoEstado = Estado(siguienteNodo,sorted(listaNuevosNodos, key=lambda reverse:True), heuristica)
+                nuevoEstado = Estado(siguienteNodo,listaNuevosNodos, heuristica)
+                #print("nuevo estado", nuevoEstado.getNodo(), nuevoEstado.getListaNodos())
                 #coste = distancia (distancia entre el nodo inicial y el nodo, o lo que es lo mismo, la longitud de la calle o arista)
                 # creamos el formato de la solución con la acción de movernos de un nodo a otro adyacente, indicando el nombre
                 # de la calle (arista), su coste, y el nuevo estado resultante tras esa acción 
                 #formato= '{} --> {}: {} ({}, {}) coste: {}, ID (md5):'.format(estado.getNodo(), siguienteNodo, nombreCalle, siguienteNodo, nuevoEstado.getListaNodos(), round(float(distancia),2))
-                formato = '{} --> {} ({}) coste: {}'.format(estado.getNodo(),siguienteNodo,nombreCalle,round(float(coste),2))
+                # formato = '{} --> {} ({}) coste: {}'.format(estado.getNodo(),siguienteNodo,nombreCalle,float(coste))
+                formato = '{} --> {}'.format(estado.getNodo(),siguienteNodo)
                 #round: redondea el número al entero más cercano.
                 #listaSucesores.append([formato, nuevoEstado.getID()]) # lo introducimos en la nueva lista de sucesores
                 #listaSucesores.append([siguienteNodo, nuevoEstado, distancia])
                 listaSucesores.append([formato, nuevoEstado, coste])
-
+                #listaImprimir.append([formato, nuevoEstado.getNodo(), nuevoEstado.getListaNodos(), nuevoEstado.get6digitosMD5(), coste])
+            #print(listaImprimir)
+            #print(listaSucesores)
             return listaSucesores
         
         else: 
