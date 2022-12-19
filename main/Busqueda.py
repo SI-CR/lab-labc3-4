@@ -1,7 +1,6 @@
 from NodoArbol import NodoArbol
 from Frontera import Frontera
 from Problema import Problema
-import hashlib
 
 
 def busquedaSolucion(problema, estrategia, profundidadMaxima,d1,tipoHeuristica):
@@ -33,15 +32,11 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
             if nodoActual.getProfundidad() <= profundidadMaxima and nodoActual.getEstado().getID() not in datosPoda:
                 sucesoresEstado = problema.getEspacioEstados().sucesores(estadoNodoActual,d1,tipoHeuristica,problema.arcoMinimo)
                 datosPoda.append(nodoActual.getEstado().getID())
-                #print(sucesoresEstado)
-                #print("NODO A EXPANDIR", nodoActual.getIDNodo())
                 if sucesoresEstado != None:
                     listaNodos = expandirNodos(sucesoresEstado, nodoActual, profundidaMaxima, estrategia)
-                    #nodosPoda, datosPoda = algoritmoPoda(datosPoda, listaNodos, estrategia)
-                    # for n in listaNodos:
-                    #     accion = (n.getAccion()).split()
-                    #     accion = int(accion[2])
-                    #     print(accion)
+                    for n in listaNodos:
+                        if n.get6Digitos().upper() == "682CA8":
+                            print("Nodo:", n.getIDNodo(),", ID estado:", n.get6Digitos().upper(), ", Profundidad:", n.getProfundidad())
                     frontera.anadirListaNodos(listaNodos)
     if (solucion == None):
         return None, None
@@ -52,7 +47,6 @@ def algoritmoBusqueda(problema, estrategia, profundidaMaxima,d1,tipoHeuristica):
 def expandirNodos(listaSucesores, padre, profundidadMaxima, estrategia):
 
     listaNodos = []
-    #if (padre.getProfundidad() < int(profundidadMaxima)):
     for datosSucesor in listaSucesores:
         coste = datosSucesor[2]
         accion = datosSucesor[0]
@@ -60,10 +54,6 @@ def expandirNodos(listaSucesores, padre, profundidadMaxima, estrategia):
         nodo = estado.getNodo()
         nodo = NodoArbol(padre, estado, coste, estrategia, accion)
         listaNodos.append(nodo)
-        # listaI = nodo.getIDNodo()
-        #print("Hijos", listaI, "Nodos", a)
-        #print("NODOS EXPANDIDOS", accion)
-        #frontera.anadirNodo(nodo)
     return listaNodos
 
 
@@ -85,16 +75,13 @@ if __name__ == "__main__":
     profundidadMaxima = 600
     Estrategia = "a*"
 
-    nodoInicial = "71"
-    listaNodosInicial = ['2','112', '287', '561', '660']
+    nodoInicial = "1221"
+    listaNodosInicial = ['249','441', '528']
 
     tipoHeuristica = "arco"
-    # nodoInicial = "216"
-
-    # listaNodosInicial = ['17','281','470', '655']
+    
     problema = Problema(nodoInicial, listaNodosInicial,tipoHeuristica)
     d1 = problema.d1
-    #grafo = problema.getEspacioEstados().getGrafo()
 
     solucion, ultimoNodoVisitado, = busquedaSolucion(
         problema, Estrategia, profundidadMaxima,d1,tipoHeuristica)
@@ -104,9 +91,8 @@ if __name__ == "__main__":
         print("- Problema:",  problema.getEstadoInicial().getNodo(),
               problema.getEstadoInicial().getListaNodos())
         print("- Estrategia usada:", Estrategia)
-        print("- Estado:", ultimoNodoVisitado.getEstado().getNodo(), ultimoNodoVisitado.getEstado().getListaNodos())
+        print("- Estado Final:", ultimoNodoVisitado.getEstado().getNodo(), ultimoNodoVisitado.getEstado().getListaNodos())
         print("- Ultimo nodo visitado:", ultimoNodoVisitado.getIDNodo(), ultimoNodoVisitado.get6Digitos())
-        #3e8b20
         print("- CAMINO SEGUIDO:")
         for nodo in reversed(solucion):
             if nodo.getPadre() == None:
@@ -115,8 +101,6 @@ if __name__ == "__main__":
             else:
                 print("[",nodo.getIDNodo(),"][",round(nodo.getCoste(),2),"[(", nodo.getEstado().getNodo(),",",nodo.getEstado().getListaNodos(),")|", nodo.get6Digitos(), "]",
                     nodo.getPadre().getIDNodo(), nodo.getAccion(), nodo.getProfundidad(), round(nodo.getHeuristica(),2), round(nodo.getValor(),2),"]")
-            #listaNodosSolucion.append(nodo.getIDNodo())
-        #print(listaNodosSolucion)
         print("- PROFUNDIDAD:", ultimoNodoVisitado.getProfundidad())
         print("- COSTE TOTAL:",ultimoNodoVisitado.getValor())
         print("FIN DEL PROGRAMA")
