@@ -1,10 +1,11 @@
 
-#from cgitb import handler
+# from cgitb import handler
 import xml.sax
 
 from key import Key
 from Nodo import Nodo
 from Edge import Edge
+
 
 class CiudadesHandler(xml.sax.ContentHandler):
 
@@ -40,43 +41,44 @@ class CiudadesHandler(xml.sax.ContentHandler):
             self.origen = atributos.get('source')
             self.destino = atributos.get('target')
             self.idArista = atributos.get('id')
-            self.idsAristas.append(self.origen + "," + self.destino + "," +self.idArista)
+            self.idsAristas.append(self.origen + "," +
+                                   self.destino + "," + self.idArista)
 
     def characters(self, content):  # Lee el contenido que hay entre la etiqueta start y end
         self.contenidoEtiqueta = content  # Lo uso en endElement
 
     def endElement(self, name):  # </
         if name == 'data':
-                # Hago el diccionario de datos del nodo
-                self.datosxml.update({self.key: self.contenidoEtiqueta})
+            # Hago el diccionario de datos del nodo
+            self.datosxml.update({self.key: self.contenidoEtiqueta})
 
         if name == 'node':
             # cada vez que ve la etiqueta node crea un nodo nuevo, conque da igual el nombre de la variable que tenga
-                nodo = Nodo(self.id, self.datosxml)
-                self.todosNodos.append(nodo)
-                self.datosxml = {}  # Vacio el diccionario para el siguiente nodo
+            nodo = Nodo(self.id, self.datosxml)
+            self.todosNodos.append(nodo)
+            self.datosxml = {}  # Vacio el diccionario para el siguiente nodo
 
         if name == 'edge':
-                #self.datosxml.update({self.key: self.contenidoEtiqueta})
-                arista = Edge(self.idArista, self.origen,
-                              self.destino, self.datosxml)
-                self.todasAristas.append(arista)
-                self.datosxml = {}
+            # self.datosxml.update({self.key: self.contenidoEtiqueta})
+            arista = Edge(self.idArista, self.origen,
+                          self.destino, self.datosxml)
+            self.todasAristas.append(arista)
+            self.datosxml = {}
 
     def getNodos(self):
         return self.todosNodos
-    
+
     def getIdsNodos(self):
         return self.idsNodos
-    
+
     def getAristas(self):
         return self.todasAristas
-    
+
     def getIdsAristas(self):
         return self.idsAristas
-    
+
     def getDatosKeys(self):
         return self.datosKeys
-    
+
     def printNodos(self):
         print(self.todosNodos)

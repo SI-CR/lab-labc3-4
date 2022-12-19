@@ -1,6 +1,4 @@
 
-#from Estado import Estado
-
 
 class NodoArbol:
 
@@ -69,6 +67,6 @@ class NodoArbol:
 
     def get6Digitos(self):
         return self.getEstado().get6digitosMD5()
-    
+
     def getHeuristica(self):
         return self.__heuristica
